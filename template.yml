@@ -5,15 +5,6 @@ Parameters:
     Type: String
 
 Resources:
-  OidcProviderGitHub:
-    Type: AWS::IAM::OIDCProvider
-    Properties:
-      Url: https://token.actions.githubusercontent.com
-      ClientIdList:
-        - sts.amazonaws.com
-      ThumbprintList:
-        - 1b511abead59c6ce207077c0bf0e0043b1382612
-
   RoleGithubActionsAdministrator:
     Type: AWS::IAM::Role
     Properties:
@@ -23,7 +14,7 @@ Resources:
           - Effect: Allow
             Action: sts:AssumeRoleWithWebIdentity
             Principal:
-              Federated: !Ref OidcProviderGitHub
+              Federated: !Sub arn:aws:iam::${AWS::AccountId}:oidc-provider/token.actions.githubusercontent.com
             Condition:
               StringLike:
                 token.actions.githubusercontent.com:sub: !Sub repo:${PrefixGitHubRepository}

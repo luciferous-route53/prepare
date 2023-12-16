@@ -1,6 +1,6 @@
 SHELL = /usr/bin/env bash -xeuo pipefail
 
-stack_name:=
+stack_name:=luciferous-route53-prepare
 
 deploy:
 	sam deploy \
